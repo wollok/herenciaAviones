@@ -1,0 +1,66 @@
+import aviones.*
+
+describe "aviones"{
+	
+	const unAvion = new Avion(consumo = 10, combustible = 100)
+	const unHeli = new Helicoptero(tripulantes = 3, consumo = 20,combustible = 70)
+//	const unHeli = new Avion(consumo = 20, combustible = 70)
+
+	const unDiri = new Dirigible(consumo = 1, combustible = 1000, pasajeros = 300)
+	const unCombatiente = new AvionDeCombate(consumo = 30, combustible = 100)
+
+test "avion de combate"{
+	unCombatiente.disparar()
+	assert.equals(98, unCombatiente.combustible())
+	assert.equals(19, unCombatiente.municiones())
+}
+
+test "dirigible accidentado sale ileso" {
+	unDiri.accidente()
+	assert.equals(300,unDiri.pasajeros())
+}
+
+test "dirigible accidentado sale todo mal" {
+	unDiri.recortePresupuesto()
+	unDiri.accidente()
+	assert.equals(30,unDiri.pasajeros())
+}
+
+
+test "avion despega" {
+
+    aeropuerto.agregarAvion(unAvion)
+    aeropuerto.hacerDespegar()
+	assert.equals(90,unAvion.combustible())
+}
+
+test "helicoptero inicia con tanque lleno" {
+
+	assert.equals(70, unHeli.combustible())
+}
+
+test "helicoptero despega y gasta combustible" {
+
+    aeropuerto.agregarAvion(unHeli)
+    aeropuerto.hacerDespegar()
+	assert.equals(50, unHeli.combustible())
+}
+
+test "helicoptero tiene accidente" {
+
+    unHeli.despegar()
+    unHeli.accidente()
+	assert.notThat(unHeli.puedeVolar())
+}
+//
+//test "avion no despega" {
+//
+//    aeropuerto.hacerDespegar()
+//	assert.equals(100,unAvion.combustible())
+//}
+
+test "no hay aviones para despegar se lanza error" {
+
+    assert.throwsExceptionWithMessage("no hay aviones", {aeropuerto.hacerDespegar()})
+}
+}

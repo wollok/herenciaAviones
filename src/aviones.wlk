@@ -76,18 +76,18 @@ class Helicoptero inherits Aeronave{
 
 object aeropuerto{
 	
-	var aviones = []
+	var aeronavesListasParaDespegan = []
 	
 	
 	method agregarAvion(a){
-		aviones.add(a)
+		aeronavesListasParaDespegan.add(a)
 	}
 	
 	method hacerDespegar(){
-		if (aviones.isEmpty()){
+		if (aeronavesListasParaDespegan.isEmpty()){
 			throw new Exception(message="no hay aviones")
 		}
-		aviones.first().despegar()
+		aeronavesListasParaDespegan.first().despegar()
 	}
 
 	
